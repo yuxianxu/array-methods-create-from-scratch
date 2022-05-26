@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "jest": "^28.1.0"
+  },
+  "name": "array-methods-create-from-scratch",
+  "version": "1.0.0",
+  "main": "arrayMethods.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --watchAll --noStackTrace"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
