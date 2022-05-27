@@ -64,6 +64,13 @@ function flatMethod(array, depth = 2) {
   return newArray;
 }
 
+//find method
+function findMethod(array, callBack) {
+  for (const element of array) {
+    if (callBack(element)) return element;
+  }
+}
+
 module.exports = {
   forEachMethod,
   mapMethod,
@@ -71,5 +78,6 @@ module.exports = {
   reduceMethod,
   someMethod,
   everyMethod,
-  flatMethod
+  flatMethod,
+  findMethod,
 };

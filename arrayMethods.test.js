@@ -6,7 +6,8 @@ const {
   reduceMethod,
   someMethod,
   everyMethod,
-  flatMethod
+  flatMethod,
+  findMethod,
 } = require('./arrayMethods.js');
 
 //initialize test array
@@ -125,28 +126,37 @@ describe('everyMethod', () => {
 
 //test flat method
 describe('flatMethod', () => {
-    
-    const flatStartingArray = [1, [3, 4], [7, [8, 9, [11, 15]]]]
-    
-    //default depth is 1, but can be change to other number like 2 for this case
-    it('no initial value', () => {
-        const result = flatMethod(flatStartingArray)
+  const flatStartingArray = [1, [3, 4], [7, [8, 9, [11, 15]]]];
 
-        expect(result).toEqual([1, 3, 4, 7, 8, 9, [11, 15]])
-    })
+  //default depth is 1, but can be change to other number like 2 for this case
+  it('no initial value', () => {
+    const result = flatMethod(flatStartingArray);
 
-    //pass a initial value, can be as same as default 
-    it('with a initial value', () => {
-        const result = flatMethod(flatStartingArray, 1.9)
-        expect(result).toEqual([1, 3, 4, 7, 8, 9, [11, 15]])
-    })
+    expect(result).toEqual([1, 3, 4, 7, 8, 9, [11, 15]]);
+  });
 
-    //pass a max integer which is greater than possible depth
-    //loop will end till max depth flatting
-    it('with max infinite value', () => {
-        const result = flatMethod(flatStartingArray, Number.MAX_SAFE_INTEGER)
+  //pass a initial value, can be as same as default
+  it('with a initial value', () => {
+    const result = flatMethod(flatStartingArray, 1.9);
+    expect(result).toEqual([1, 3, 4, 7, 8, 9, [11, 15]]);
+  });
 
-        expect(result).toEqual([1, 3, 4, 7, 8, 9, 11, 15])
-    })
+  //pass a max integer which is greater than possible depth
+  //loop will end till max depth flatting
+  it('with max infinite value', () => {
+    const result = flatMethod(flatStartingArray, Number.MAX_SAFE_INTEGER);
 
-})
+    expect(result).toEqual([1, 3, 4, 7, 8, 9, 11, 15]);
+  });
+});
+
+it('findMethod', () => {
+  const testFunction = jest.fn((elem) => elem === 'a');
+  const result = findMethod(startingArray, testFunction);
+
+  expect(result).toEqual('a');  
+  
+  const testTwoFunction = jest.fn((elem) => elem == 'e');
+  const nothingFound = findMethod(startingArray, testTwoFunction);
+  expect(nothingFound).toBeUndefined();
+});
