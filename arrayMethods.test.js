@@ -5,6 +5,8 @@ const {
   filterMethod,
   reduceMethod,
   someMethod,
+  everyMethod,
+  flatMethod
 } = require('./arrayMethods.js');
 
 //initialize test array
@@ -89,6 +91,7 @@ describe('someMethod', () => {
     const someStartingArray = [-3, 4, 5, 6];
     const testFunction = jest.fn((elem) => elem > 0);
     const result = someMethod(someStartingArray, testFunction);
+
     expect(result).toEqual(true);
   });
 
@@ -96,6 +99,54 @@ describe('someMethod', () => {
     const someStartingArray = [-2, -5, -9];
     const testFunction = jest.fn((elem) => elem > 0);
     const result = someMethod(someStartingArray, testFunction);
+
     expect(result).toEqual(false);
   });
 });
+
+//test every method
+
+describe('everyMethod', () => {
+  const everyStaringArray = [-1, 3, 9, 11];
+  it('with no falsy value', () => {
+    const testFunction = jest.fn((elem) => elem > -2);
+    const result = everyMethod(everyStaringArray, testFunction);
+
+    expect(result).toEqual(true);
+  });
+
+  it('with a falsy value', () => {
+    const testFunction = jest.fn((el) => el < 11);
+    const result = everyMethod(everyStaringArray, testFunction);
+
+    expect(result).toEqual(false);
+  });
+});
+
+//test flat method
+describe('flatMethod', () => {
+    
+    const flatStartingArray = [1, [3, 4], [7, [8, 9, [11, 15]]]]
+    
+    //default depth is 1, but can be change to other number like 2 for this case
+    it('no initial value', () => {
+        const result = flatMethod(flatStartingArray)
+
+        expect(result).toEqual([1, 3, 4, 7, 8, 9, [11, 15]])
+    })
+
+    //pass a initial value, can be as same as default 
+    it('with a initial value', () => {
+        const result = flatMethod(flatStartingArray, 1.9)
+        expect(result).toEqual([1, 3, 4, 7, 8, 9, [11, 15]])
+    })
+
+    //pass a max integer which is greater than possible depth
+    //loop will end till max depth flatting
+    it('with max infinite value', () => {
+        const result = flatMethod(flatStartingArray, Number.MAX_SAFE_INTEGER)
+
+        expect(result).toEqual([1, 3, 4, 7, 8, 9, 11, 15])
+    })
+
+})

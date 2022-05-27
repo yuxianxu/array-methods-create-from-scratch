@@ -43,4 +43,33 @@ function someMethod(array, callBack) {
   return false;
 }
 
-module.exports = { forEachMethod, mapMethod, filterMethod, reduceMethod, someMethod };
+//every method
+function everyMethod(array, callBack) {
+  for (const element of array) {
+    if (!callBack(element)) return false;
+  }
+  return true;
+}
+
+//flat method
+function flatMethod(array, depth = 2) {
+  const newArray = [];
+  for (const element of array) {
+    if (Array.isArray(element) && depth > 0) {
+      newArray.push(...flatMethod(element, depth - 1));
+    } else {
+      newArray.push(element);
+    }
+  }
+  return newArray;
+}
+
+module.exports = {
+  forEachMethod,
+  mapMethod,
+  filterMethod,
+  reduceMethod,
+  someMethod,
+  everyMethod,
+  flatMethod
+};
